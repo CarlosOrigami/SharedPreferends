@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String KEY_NAME = "userName";
 
-    private TextView welcomeText;
+    private TextView bienvenidaText;
     private EditText nameInput;
-    private Button updateButton;
+    private Button actulizarBoton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +23,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Vinculamos los elementos de la vista
-        welcomeText = findViewById(R.id.welcomeText);
+        bienvenidaText = findViewById(R.id.bienvenidaText);
         nameInput = findViewById(R.id.nameInput);
-        updateButton = findViewById(R.id.updateButton);
+        actulizarBoton = findViewById(R.id.actualizarBoton);
 
         // Obtener SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-        // Cargar el nombre guardado si existe
+        // Cargar el nombre guardado
         String savedName = sharedPreferences.getString(KEY_NAME, "Bienvenido");
-        welcomeText.setText(savedName);
+        bienvenidaText.setText(savedName);
 
         // Configuramos el botón de actualizar
-        updateButton.setOnClickListener(v -> {
+        actulizarBoton.setOnClickListener(v -> {
             String newName = nameInput.getText().toString().trim();
 
             if (newName.equalsIgnoreCase("apagado")) {
@@ -49,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
 
                 // Actualizar el texto de bienvenida
-                welcomeText.setText(newName);
-                Toast.makeText(MainActivity.this, "Nombre actualizado", Toast.LENGTH_SHORT).show();
+                bienvenidaText.setText(newName);
             }
         });
     }
